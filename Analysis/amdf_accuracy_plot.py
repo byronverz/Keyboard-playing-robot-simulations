@@ -11,9 +11,13 @@ import matplotlib.pyplot as plt
 with open("out_freq_list.csv", 'r') as freq_file:
     freqs = np.genfromtxt(freq_file)
 
+pitches  = 1/freqs
+
 with open("key_freq_list.txt", 'r') as kfile:
     key_freq_list = np.genfromtxt(kfile)
-    
+
+key_pitch_list = 1/key_freq_list
+
 with open("key_name_list.txt", 'r') as nfile:
     key_name_list = [word.strip(",") for line in nfile for word in line.split()]
 
@@ -40,7 +44,7 @@ for i in range(len(key_freq_list)-1):
 #     plt.savefig("AMDF_Accuracy_results/key_{}.png".format(key_name_list[i]))
 #     plt.close()
     
-plt.plot(freqs)
-for f in key_freq_list[1:-1]:
+plt.plot(pitches)
+for f in key_pitch_list[1:-1]:
     plt.axhline(f, color='r')
 
