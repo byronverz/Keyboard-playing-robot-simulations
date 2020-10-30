@@ -35,7 +35,10 @@ def key_time2(keys_arr):
     next_key_i = 1
     if keys_arr[curr_key_i] == keys_arr[next_key_i]:
         out_key = keys_arr[curr_key_i]
-        curr_key_time += 0.0625*2
+        if curr_key_time != 0:
+            curr_key_time += 0.0625
+        elif curr_key_time == 0:
+            curr_key_time += 0.0625*2
         curr_key_i = next_key_i 
         next_key_i += 1
         print("Case 1: Current and next equal \n curr_i: {} \t next_i: {}".format(curr_key_i,next_key_i))
@@ -49,9 +52,8 @@ def key_time2(keys_arr):
             time.append(curr_key_time)
     else:
         if keys_arr[curr_key_i] == keys_arr[next_key_i+1]:
-            
             out_key = keys_arr[curr_key_i]
-            curr_key_time =+ 0.0625*3
+            curr_key_time += 0.0625*3
             curr_key_i = next_key_i+1
             next_key_i += ((next_key_i+1)+1)
             print("Case 2: Current and next + 1 equal \n curr_i: {} \t next_i: {}".format(curr_key_i,next_key_i))
@@ -65,15 +67,14 @@ def key_time2(keys_arr):
                 time.append(curr_key_time)
         else:
             if curr_key_time !=0:
-                
                 out_key_list.append(out_key)
                 time.append(curr_key_time)
-                curr_key_time = 0.0
                 curr_key_i = next_key_i
                 next_key_i += 1
                 print("Case 3: End time for key: {}".format(keys_arr[curr_key_i-1]))
                 print("Current key time: {}".format(curr_key_time))
                 print("3. New keys_arr: {} \n".format(keys_arr[curr_key_i:]))
+                curr_key_time = 0.0
                 try:
                     key_time2(keys_arr[curr_key_i:])
                 except IndexError:
@@ -81,6 +82,9 @@ def key_time2(keys_arr):
                     out_key_list.append(out_key)
                     time.append(curr_key_time)
             else:
+                print("Add silent key \n")
+                out_key_list.append(-1)
+                time.append(0.0625)
                 curr_key_i = next_key_i
                 next_key_i += 1
                 try:
@@ -91,10 +95,7 @@ def key_time2(keys_arr):
                     time.append(curr_key_time)
     
                 
-key_list =  [15.0, 15.0, 14.0, 14.0, 15.0, 14.0, 14.0, 14.0, 14.0, 14.0, 14.0, 14.0, 
-             14.0, 15.0, 15.0, 15.0, 15.0, 15.0, 14.0, 14.0, 15.0, 15.0, 15.0, 14.0, 
-             14.0, 15.0, 15.0, 15.0, 14.0, 15.0, 15.0, 15.0, 14.0, 15.0, 15.0, 15.0, 
-             15.0, 15.0, 14.0, 15.0, 15.0, 15.0, 14.0, 15.0, 15.0, 15.0, 15.0, 15.0]
+key_list =   [-6.0, -6.0, -6.0, -3.0, -6.0, -6.0, -5.0, -6.0, -5.0, 1.0, -6.0, 12.0, -3.0, -5.0, -4.0, -3.0, -5.0, -3.0, -6.0, 3.0, -6.0, -6.0, 2.0, -6.0, -6.0, 2.0, 0.0, -6.0, -6.0, -4.0, 15.0, 17.0, 22.0, 22.0, 21.0, 21.0, 17.0, 17.0, 17.0, 18.0, 21.0, 21.0, 21.0, 19.0, 17.0, 17.0, 18.0, 18.0]
 time = []
 out_key_list = []
 curr_key_i = 0
@@ -105,7 +106,7 @@ key_time2(key_list)
 
 # count_dups = [sum(1 for _ in group) for _, group in groupby(key_list)]
 # key_time(key_list)
-print(time, out_key_list)
+print(np.sum(time), out_key_list)
 
 
 # print(count_dups)
