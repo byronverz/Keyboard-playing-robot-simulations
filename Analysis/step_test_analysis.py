@@ -24,7 +24,10 @@ sp = [0 for i in range(10)]
 for t in range(404):
     sp.append(658.028)
 
-# x = np.arange(0,10.35,0.025)
+x = np.arange(0,1.075,0.025)
+
+z = np.polyfit(x,pi[2:],6)    
+y2 = z[0]*x**6+z[1]*x**5+z[2]*x**4+z[3]*x**3+z[4]*x**2+z[5]*x+z[6]
 
 fig, ax1= plt.subplots()
 # ax1.plot(dist)
@@ -34,4 +37,6 @@ fig, ax1= plt.subplots()
 # plt.xticks(x)
 ax2 = plt.twinx()
 # plt.plot(error)
-ax2.plot(pi, color='red')
+ax2.plot(x,pi[2:], color='red')
+ax2.plot(x,y2)
+print(z)
